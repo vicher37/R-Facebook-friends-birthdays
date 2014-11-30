@@ -1,0 +1,60 @@
+#Friend's Birthday Project:
+
+birthday = read.csv('birthday.csv')
+summary(birthday$Start.Date)
+birthday$date = strptime(birthday$Start.Date, "%Y/%m/%d")
+# remember to add / between formats
+birthday$day = date$mday
+birthday$month = birthday$date$mon+1
+# just extract the components by their names. mon is zero-indexed so have to plus 1.
+
+
+# Distribution of birth days of my Facebook friends
+qplot(x = birthday$day, data = birthday, geom = "histogram", binwidth = 1) +
+  scale_x_discrete(breaks = seq(1, 31, 1)) +
+  xlab("day of birthday") +
+  labs(title = "Distribution of birth days of my Facebook friends") +
+  theme_economist(base_size = 10, base_family = "sans", horizontal = TRUE,
+  dkpanel = FALSE, stata = FALSE)
+
+summary(birthday$day)
+
+by(birthday$day, birthday$month, summary)
+
+
+# Distribution of birth months of my Facebook friends
+qplot(x = birthday$month, data = birthday, geom = "histogram", binwidth = 1, color = I('black'), fill = I('#099DD9')) +
+  scale_x_discrete(breaks = seq(1, 12, 1)) +
+  xlab("birth month") +
+  labs(title = "Distribution of birth months of my Facebook friends") +
+  theme_economist(base_size = 10, base_family = "sans", horizontal = TRUE,
+  dkpanel = FALSE, stata = FALSE)
+  
+summary(birthday$month)
+
+# how many people share my birthday?
+mybirthday = subset(birthday, day == 24 & month == 2)
+summary(mybirthday)
+mybirthday
+
+# which months contains the most number of birthdays? March, April, September.
+table(birthday$month)
+# numerical table of birthday$month
+
+# how many birthdays are in each month?
+table(birthday$month)
+
+# Which day of the year has the most number of birthdays? 2/10, 5 birthdays.
+table(birthday$Start.Date)
+
+freq = as.data.frame(table(birthday$Start.Date))
+freq
+
+ordered_freq = freq[order(-freq$Freq), ]
+ordered_freq
+#reference: counting the number of elements: http://stackoverflow.com/questions/1923273/counting-the-number-of-elements-with-the-values-of-x-in-a-vector
+# sorting: http://www.statmethods.net/management/sorting.html
+
+# Do you have at least 365 friends that have birthdays on everyday
+# of the year?
+# No, I only have 307 friends with valid birthdays, and due to duplication, they only covered 196 days.
