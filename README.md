@@ -19,5 +19,5 @@ Min. 1st Qu. Median Mean 3rd Qu. Max.
 
 table(birthday$month)
 
-month 1  2  3  4  5  6  7  8  9 10 11 12 
+month 1  2  3  4  5  6  7  8  9 10 11 12  
 count 33 26 34 34 25 28 33 30 34 1 1  28
